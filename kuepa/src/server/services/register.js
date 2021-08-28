@@ -2,12 +2,18 @@ const MongoLib = require("../lib/mongo");
 
 class RegisterService {
   constructor() {
-    this.collection = "user";
+    this.collection = "users";
     this.mongoDB = new MongoLib();
   }
 
+  async getOne({ username }) {
+    const [user] = await this.mongoDB.getAll(this.collection, { username });
+    return user;
+  }
+
   async createUser({ data }) {
-    const userExist = await this.mongoDB.get(this.collection, data.username);
+    const username = data.username;
+    const userExist = await this.getOne({ username });
     if (!userExist) {
       const createdUserId = await this.mongoDB.create(this.collection, data);
       return createdUserId;

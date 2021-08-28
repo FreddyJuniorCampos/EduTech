@@ -44,14 +44,6 @@ class MongoLib {
     return product;
   }
 
-  async get(collection, username) {
-    const db = await this.connect();
-    const result = await db
-      .collection(collection)
-      .findOne({ username: username });
-    return result;
-  }
-
   async create(collection, data) {
     const db = await this.connect();
     const result = await db.collection(collection).insertOne(data);

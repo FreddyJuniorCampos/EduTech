@@ -1,7 +1,8 @@
 const express = require("express");
 const RegisterService = require("../services/register");
+const bcrypt = require("bcrypt");
 
-const { userIdSchema, createUserSchema } = require("../utils/schema/user");
+const { userIdSchema, createUserSchema } = require("../utils/schema/users");
 const validationHandler = require("../utils/middleware/validationHandler");
 
 function register(app) {
@@ -13,7 +14,7 @@ function register(app) {
   // Routes
   router.post("/", validationHandler(createUserSchema), createUser);
   router.delete(
-    "/:movieId",
+    "/:userId",
     validationHandler({ userId: userIdSchema }),
     deleteUser
   );
@@ -21,6 +22,8 @@ function register(app) {
   // Functions
   async function createUser(req, res, next) {
     const { body: data } = req;
+    data.password = await bcrypt.hash(data.password, 10);
+    delete data.confirmPassword;
     try {
       const createdUserId = await registerService.createUser({ data });
 
