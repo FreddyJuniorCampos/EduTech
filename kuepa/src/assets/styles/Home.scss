@@ -1,0 +1,39 @@
+body {
+  background-color: #f5f5f5;
+  margin-top: 20px;
+}
+.card {
+  background: #f5f5f5;
+  transition: 0.5s;
+  border: 0;
+  margin-bottom: 30px;
+  border-radius: 0.55rem;
+  position: relative;
+  width: 100%;
+}
+
+.chat .chat-history {
+  padding: 20px;
+  border-bottom: 2px solid #f5f5f5;
+}
+
+.chat .chat-history ul {
+  padding: 0;
+}
+
+.chat .chat-history ul li {
+  list-style: none;
+  margin-bottom: 30px;
+}
+
+.chat .chat-history ul li:last-child {
+  margin-bottom: 0px;
+}
+
+.chat .chat-history .message-data {
+  margin-bottom: 15px;
+}
+
+.chat .chat-message {
+  padding: 20px;
+}

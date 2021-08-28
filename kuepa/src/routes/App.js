@@ -4,6 +4,7 @@ import Home from "../containers/Home";
 import Login from "../containers/Login";
 import NotFound from "../containers/NotFound";
 import Register from "../containers/Register";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const App = () => (
   <BrowserRouter>
