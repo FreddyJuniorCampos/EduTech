@@ -7,6 +7,8 @@ const reducer = (state, { type, payload }) => {
       };
       break;
 
+    case "LOGOUT_REQUEST":
+      state = { ...state, user: {} };
     default:
       return state;
   }

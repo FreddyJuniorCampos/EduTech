@@ -5,16 +5,20 @@ import Login from "../containers/Login";
 import NotFound from "../containers/NotFound";
 import Register from "../containers/Register";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 const App = ({ isLogged }) => {
   return (
     <BrowserRouter>
+      <Header isLogged />
       <Switch>
         <Route exact path="/" component={isLogged ? Home : Login} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
         <Route component={NotFound} />
       </Switch>
+      <Footer />
     </BrowserRouter>
   );
 };
