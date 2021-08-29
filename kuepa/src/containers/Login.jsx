@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { loginRequest } from "../actions";
+import { loginUser } from "../actions";
 import "../assets/styles/Login.scss";
 
-const Login = (props) => {
+const Login = () => {
   const [form, setValues] = useState({
     username: "",
+    password: "",
   });
 
   const dispatch = useDispatch();
@@ -20,8 +21,7 @@ const Login = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(loginRequest(form));
-    props.history.push("/");
+    dispatch(loginUser(form, "/"));
   };
 
   return (
@@ -41,10 +41,12 @@ const Login = (props) => {
               name="password"
               className="form-control mb-2 rounded-3"
               type="password"
-              placeholder="Contraseña"
+              placeholder="Password"
               onChange={handleInput}
             />
-            <button className="button mb-2 rounded-3">Login</button>
+            <button className="button mb-2 rounded-3" type="submit">
+              Login
+            </button>
             <div className="login__container--remember-me">
               <label>
                 <input type="checkbox" id="cbox1" value="first_checkbox" />

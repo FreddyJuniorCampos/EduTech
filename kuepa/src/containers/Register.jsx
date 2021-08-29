@@ -1,23 +1,23 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { registerRequest } from "../actions";
+import { registerUser } from "../actions";
 import "../assets/styles/Register.scss";
 
-const Register = (props) => {
+const Register = () => {
   const [form, setValues] = useState({
     email: "",
-    first_name: "",
-    last_name: "",
+    firstName: "",
+    lastName: "",
     username: "",
     password: "",
     confirmPassword: "",
-    usertype: "",
+    usertype: "student",
   });
   const dispatch = useDispatch();
 
-  const handleInput = (event) => {
-    setValues({
+  const handleInput = async (event) => {
+    await setValues({
       ...form,
       [event.target.name]: event.target.value,
     });
@@ -25,8 +25,7 @@ const Register = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(registerRequest(form));
-    props.history.push("/");
+    dispatch(registerUser(form, "/login"));
   };
 
   return (
@@ -36,14 +35,14 @@ const Register = (props) => {
           <h2 className="text-center">Sign Up</h2>
           <form className="register__container--form" onSubmit={handleSubmit}>
             <input
-              name="first_name"
+              name="firstName"
               className="form-control mb-2 rounded-3"
               type="text"
-              placeholder="Fist name"
+              placeholder="First name"
               onChange={handleInput}
             />
             <input
-              name="last_name"
+              name="lastName"
               className="form-control mb-2 rounded-3"
               type="text"
               placeholder="Last name"
@@ -71,7 +70,7 @@ const Register = (props) => {
               onChange={handleInput}
             />
             <input
-              name="password"
+              name="confirmPassword"
               className="form-control mb-2 rounded-3"
               type="password"
               placeholder="Confirm password"
@@ -80,12 +79,15 @@ const Register = (props) => {
             <select
               className="form-select mb-2"
               aria-label="Default select example"
+              name="usertype"
+              onChange={handleInput}
             >
-              <option selected>User type</option>
               <option value="student">Student</option>
               <option value="moderator">Moderator</option>
             </select>
-            <button className="button mb-2 rounded-3">Register</button>
+            <button className="button mb-2 rounded-3" type="submit">
+              Register
+            </button>
           </form>
           <Link to="/login" className="text-primary">
             <h4>Login</h4>

@@ -15,6 +15,7 @@ const createUserSchema = joi.object({
   email: userEmail.required(),
   password: userPassword.required(),
   confirmPassword: userConfirmPassword.required(),
+  usertype: joi.string().required(),
 });
 
 module.exports = {

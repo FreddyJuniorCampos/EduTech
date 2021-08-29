@@ -6,15 +6,17 @@ import NotFound from "../containers/NotFound";
 import Register from "../containers/Register";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const App = () => (
-  <BrowserRouter>
-    <Switch>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/login" component={Login} />
-      <Route exact path="/register" component={Register} />
-      <Route component={NotFound} />
-    </Switch>
-  </BrowserRouter>
-);
+const App = ({ isLogged }) => {
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={isLogged ? Home : Login} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/register" component={Register} />
+        <Route component={NotFound} />
+      </Switch>
+    </BrowserRouter>
+  );
+};
 
 export default App;
