@@ -1,7 +1,7 @@
 import React from "react";
 import "../assets/styles/Message.scss";
 
-const Chat = ({ user, username, message, createdAt }) => {
+const Chat = ({ user, username, message, createdAt, usertype }) => {
   const date = new Date(createdAt);
   let [month, day, hour, minute] = [
     date.getMonth(),
@@ -10,7 +10,6 @@ const Chat = ({ user, username, message, createdAt }) => {
     date.getMinutes(),
   ];
   let received_msg = false;
-  const usertype = "student";
 
   if (user.username !== username) {
     received_msg = true;

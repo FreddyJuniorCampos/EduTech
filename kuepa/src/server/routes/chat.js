@@ -43,10 +43,10 @@ function messagesApi(app) {
 
   async function createMessage(req, res, next) {
     const { body, user } = req;
-    const { username } = user;
+    const { username, usertype } = user;
     const { message } = body;
     const createdAt = new Date(Date.now());
-    const data = { username, message, createdAt };
+    const data = { username, usertype, message, createdAt };
     try {
       const createdMessageId = await messageService.createMessage({ data });
 
