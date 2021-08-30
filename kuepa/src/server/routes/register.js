@@ -32,7 +32,11 @@ function register(app) {
         message: "user created",
       });
     } catch (err) {
-      next(err);
+      if (err.message === "Username is already in use") {
+        return res.status(400).json({ payload: { message: err.message } });
+      } else {
+        return res.status(500).json({ payload: { message: err.message } });
+      }
     }
   }
 

@@ -1,10 +1,31 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { registerUser } from "../actions";
 import "../assets/styles/Register.scss";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import * as Yup from "yup";
+
+const RegisterSchema = Yup.object().shape({
+  email: Yup.string().required("Email is required"),
+  password: Yup.string()
+    .min(8, "Password must be 8 characters")
+    .required("Password is required"),
+  username: Yup.string().required("Username is required"),
+  usertype: Yup.string().required("Usertype is required"),
+  confirmPassword: Yup.string().oneOf(
+    [Yup.ref("password"), null],
+    "Both password need to be the same"
+  ),
+  lastName: Yup.string().required("Last name is required"),
+  firstName: Yup.string().required("Usertype is required"),
+});
+
+const MySwal = withReactContent(Swal);
 
 const Register = () => {
+  const state = useSelector((state) => state);
   const [form, setValues] = useState({
     email: "",
     firstName: "",
@@ -23,17 +44,69 @@ const Register = () => {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    dispatch(registerUser(form, "/login"));
+    try {
+      await RegisterSchema.validate(form);
+      dispatch(registerUser(form, "/login"));
+    } catch (error) {
+      console.log(error);
+      MySwal.fire({
+        didOpen: () => {
+          MySwal.clickConfirm();
+        },
+      }).then(() => {
+        return MySwal.fire(<p>{error.message}</p>);
+      });
+    }
   };
+
+  useEffect(() => {
+    const { error } = state;
+    if (error) {
+      setValues({
+        email: "",
+        firstName: "",
+        lastName: "",
+        username: "",
+        password: "",
+        confirmPassword: "",
+        usertype: "student",
+      });
+
+      console.log("Error msg", error.message);
+      document.getElementById("Register").reset();
+
+      if (error === "Request failed with status code 400") {
+        MySwal.fire({
+          didOpen: () => {
+            MySwal.clickConfirm();
+          },
+        }).then(() => {
+          return MySwal.fire(<p>Username is already in use</p>);
+        });
+      } else {
+        MySwal.fire({
+          didOpen: () => {
+            MySwal.clickConfirm();
+          },
+        }).then(() => {
+          return MySwal.fire(<p>Internal Error</p>);
+        });
+      }
+    }
+  }, [state]);
 
   return (
     <>
       <section className="register">
         <section className="register__container">
           <h2 className="text-center">Sign Up</h2>
-          <form className="register__container--form" onSubmit={handleSubmit}>
+          <form
+            className="register__container--form"
+            id="Register"
+            onSubmit={handleSubmit}
+          >
             <input
               name="firstName"
               className="form-control mb-2 rounded-3"

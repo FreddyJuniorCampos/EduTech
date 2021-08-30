@@ -5,7 +5,8 @@ import Message from "./Message";
 import "../assets/styles/Chat.scss";
 
 const Chat = () => {
-  const { messages, user } = useSelector((state) => state);
+  const state = useSelector((state) => state);
+  const { messages, user } = state;
   const dispatch = useDispatch();
 
   const [messageText, setValues] = useState({
@@ -18,7 +19,7 @@ const Chat = () => {
     };
 
     listMessages(user.token);
-  }, []);
+  }, [state]);
 
   const handleInput = (event) => {
     setValues({
