@@ -24,9 +24,10 @@ if (id) {
   initialState = {
     user: { id, username, email, token },
     messages: [],
+    error: null,
   };
 } else {
-  initialState = { user: {}, messages: [] };
+  initialState = { user: {}, messages: [], error: null };
 }
 
 const middlewares = applyMiddleware(thunk);

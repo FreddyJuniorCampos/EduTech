@@ -62,7 +62,7 @@ const Chat = () => {
                     name="inputMessage"
                     onChange={handleInput}
                   />
-                  <button className="btn btn-success ml-5" type="submit">
+                  <button className="btn btn-success" type="submit">
                     Send
                   </button>
                 </form>

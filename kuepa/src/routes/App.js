@@ -7,6 +7,7 @@ import Register from "../containers/Register";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import "../assets/styles/App.scss";
 
 const App = ({ isLogged }) => {
   return (

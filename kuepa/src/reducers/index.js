@@ -4,17 +4,24 @@ const reducer = (state, { type, payload }) => {
       return {
         ...state,
         user: payload,
+        error: null,
+      };
+
+    case "SET_ERROR":
+      return {
+        ...state,
+        error: payload.message,
       };
 
     case "LOGOUT_REQUEST":
-      return { ...state, user: {} };
+      return { ...state, user: {}, error: null };
 
     case "SET_MESSAGES":
       let messages = [];
       Object.values(payload).forEach((item) => {
         messages.push(item);
       });
-      return { ...state, messages };
+      return { ...state, messages, error: null };
 
     default:
       return state;

@@ -11,11 +11,9 @@ passport.use(
 
     try {
       const user = await userService.getOne({ username });
-      console.log("Username", user);
       if (!user) {
         return cb(boom.unauthorized(), false);
       }
-
       if (!(await bcrypt.compare(password, user.password))) {
         return cb(boom.unauthorized(), false);
       }
