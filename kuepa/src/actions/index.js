@@ -15,6 +15,11 @@ export const registerRequest = (payload) => ({
   payload,
 });
 
+export const setMessages = (payload) => ({
+  type: "SET_MESSAGES",
+  payload,
+});
+
 export const setError = (payload) => ({
   type: "SET_ERROR",
   payload,
@@ -51,6 +56,41 @@ export const loginUser = ({ username, password }, redirectUrl) => {
       })
       .then(() => {
         window.location.href = redirectUrl;
+      })
+      .catch((err) => dispatch(setError(err)));
+  };
+};
+
+export const loadMessages = (token) => {
+  return (dispatch) => {
+    axios({
+      url: `http://localhost:3001/api/messages`,
+      method: "get",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then(({ data }) => {
+        dispatch(setMessages(data.data));
+      })
+      .catch((err) => dispatch(setError(err)));
+  };
+};
+
+export const sendMessage = (token, user, message) => {
+  return (dispatch) => {
+    axios({
+      url: `http://localhost:3001/api/messages`,
+      method: "post",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        message,
+      },
+    })
+      .then(() => {
+        dispatch(loadMessages(token));
       })
       .catch((err) => dispatch(setError(err)));
   };

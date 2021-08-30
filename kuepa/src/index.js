@@ -21,9 +21,12 @@ let initialState;
 const { id, username, email, token } = cookies;
 
 if (id) {
-  initialState = { user: { id, username, email, token } };
+  initialState = {
+    user: { id, username, email, token },
+    messages: [],
+  };
 } else {
-  initialState = { user: {} };
+  initialState = { user: {}, messages: [] };
 }
 
 const middlewares = applyMiddleware(thunk);

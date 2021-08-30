@@ -36,16 +36,11 @@ const Header = (props) => {
           {hasUser ? (
             <img src={userImg} alt="User Image" />
           ) : (
-            <img src={signImg} alt="User Image" />
+            <img src={signImg} alt="Sign Image" />
           )}
           <p>Perfil</p>
         </div>
         <ul>
-          {hasUser ? (
-            <li>
-              <Link to="/">username</Link>
-            </li>
-          ) : null}
           {hasUser ? (
             <li>
               <Link to="/login" onClick={handleLogout}>

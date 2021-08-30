@@ -1,14 +1,21 @@
 const reducer = (state, { type, payload }) => {
   switch (type) {
     case "LOGIN_REQUEST":
-      state = {
+      return {
         ...state,
         user: payload,
       };
-      break;
 
     case "LOGOUT_REQUEST":
-      state = { ...state, user: {} };
+      return { ...state, user: {} };
+
+    case "SET_MESSAGES":
+      let messages = [];
+      Object.values(payload).forEach((item) => {
+        messages.push(item);
+      });
+      return { ...state, messages };
+
     default:
       return state;
   }
