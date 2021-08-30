@@ -18,7 +18,7 @@ const Chat = () => {
     };
 
     listMessages(user.token);
-  }, [messages]);
+  }, []);
 
   const handleInput = (event) => {
     setValues({
@@ -42,18 +42,14 @@ const Chat = () => {
     <div className="container-fluid d-flex flex-row-reverse">
       <div className="row">
         <div className="col-lg-12">
-          <div className="card chat-app">
-            <div className="chat">
-              <div className="chat-history">
-                <ul className="m-b-0">
-                  <li className="clearfix">
-                    {messages.map((item) => (
-                      <Message key={item._id} {...item} />
-                    ))}
-                  </li>
-                </ul>
+          <div className="card">
+            <div className="mesgs">
+              <div className="msg_history">
+                {messages.map((item) => (
+                  <Message key={item._id} {...item} user={user} />
+                ))}
               </div>
-              <div className="chat-message">
+              <div className="type_msg">
                 <form
                   id="inputMessage"
                   className="input-group mb-0"
