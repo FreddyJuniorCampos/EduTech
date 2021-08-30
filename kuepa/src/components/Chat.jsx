@@ -19,7 +19,7 @@ const Chat = () => {
     };
 
     listMessages(user.token);
-  }, [state]);
+  }, [messages]);
 
   const handleInput = (event) => {
     setValues({

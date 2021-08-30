@@ -50,7 +50,7 @@ const Login = () => {
 
   useEffect(() => {
     const { error } = state;
-    if (error) {
+    if (error !== null) {
       setValues({
         username: "",
         password: "",
@@ -106,12 +106,6 @@ const Login = () => {
             <button className="button mb-2 rounded-3" type="submit">
               Login
             </button>
-            <div className="login__container--remember-me">
-              <label>
-                <input type="checkbox" id="cbox1" value="first_checkbox" />
-                Remember me
-              </label>
-            </div>
           </form>
           <p className="login__container--register">
             You don't have any account <Link to="/register">Sign up</Link>
